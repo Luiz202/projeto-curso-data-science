@@ -1,0 +1,1 @@
+nessa pasta ficam as chaves de api do twitter
