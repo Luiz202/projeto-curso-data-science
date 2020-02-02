@@ -39,6 +39,7 @@ interesse <- list(bot=0,
                    audiovisual=0,
                    arte=0,
                    lgbtq=0,
+                  futebol=0,
                    Na=0
                   )
 ##### Actual Fucking Code #####
@@ -53,8 +54,8 @@ for (flw in infl_flw$user_id) {
   tryCatch(expr = { flw_fds <- get_friends(users = flw, retryonratelimit = TRUE, n = 5000) },
          warning = function(w) {
            print(w)
-           erro <- w
-           Sys.sleep(60*15)
+           if (w[[1]] == "Rate limit exceeded - 88") {
+           Sys.sleep(60*15) }
          }  )
   print(paste("Amigos do usuario", flw, "armazenados"))
   if ("user_id" %in% colnames(flw_fds)) {
@@ -94,6 +95,7 @@ resultado <- data.frame(
   audiovisual= interesse$audiovisual,
   arte= interesse$arte,
   lgbtq= interesse$lgbtq,
+  futebol = interesse$futebol,
   Na= interesse$Na
 )
 
@@ -137,4 +139,15 @@ Sys.Date()
 
 interesse$bot
 
-get_friends(1206358247508234241)
+get_friends(users = 271548571)
+tryCatch(expr = {
+  get_friends(users = 271548571)
+},
+  warning = function(w) {
+    print(w[[1]])
+    if (w[[1]] == "Rate limit exceeded - 88") {
+      print("ya")
+    }
+  })
+    
+
